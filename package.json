@@ -1,0 +1,92 @@
+{
+  "name": "busted-test-explorer",
+  "displayName": "Busted Test Explorer",
+  "description": "Discover and run your lua busted tests from vscode",
+  "version": "0.0.1",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/BuBuaBu/vscode-busted-test-explorer.git"
+  },
+  "author": "Vivien HENRIET",
+  "publisher": "bubuabu",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/BuBuaBu/vscode-busted-test-explorer/issues"
+  },
+  "homepage": "https://github.com/BuBuaBu/vscode-busted-test-explorer",
+  "engines": {
+    "vscode": "^1.67.0"
+  },
+  "categories": [
+    "Testing"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./out/extension.js",
+  "contributes": {
+    "configuration": {
+      "title": "Busted Test Explorer",
+      "properties": {
+        "busted-test-explorer.executable": {
+          "type": "string",
+          "default": "busted",
+          "description": "Name or full path of the busted executable. If only a name is provided, the executable must be in PATH."
+        },
+        "busted-test-explorer.args": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "description": "Additional busted command line option."
+        },
+        "busted-test-explorer.cwd": {
+          "type": "string",
+          "description": "Working directory used by busted during test runs."
+        },
+        "busted-test-explorer.env": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "string"
+          },
+          "description": "Environement variable appended to the environment when busted is executed."
+        },
+        "busted-test-explorer.testfilepattern": {
+          "type": "string",
+          "default": "*_spec.lua",
+          "description": "Test file pattern"
+        }
+      }
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "npm run compile",
+    "compile": "tsc -p ./",
+    "watch": "tsc -watch -p ./",
+    "pretest": "npm run compile && npm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/glob": "^7.2.0",
+    "@types/luaparse": "^0.2.8",
+    "@types/mocha": "^9.1.1",
+    "@types/node": "14.x",
+    "@types/vscode": "^1.67.0",
+    "@typescript-eslint/eslint-plugin": "^5.21.0",
+    "@typescript-eslint/parser": "^5.21.0",
+    "@vscode/test-electron": "^2.1.3",
+    "eslint": "^8.14.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-mocha": "^10.0.5",
+    "glob": "^8.0.3",
+    "mocha": "^9.2.2",
+    "standard": "^17.0.0",
+    "typescript": "^4.6.4",
+    "vsce": "^2.8.0"
+  },
+  "dependencies": {
+    "luaparse": "^0.3.1",
+    "minimatch": "^5.1.0"
+  }
+}

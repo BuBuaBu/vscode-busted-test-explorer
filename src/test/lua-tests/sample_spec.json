@@ -1,0 +1,263 @@
+[
+  {
+    "type": "Suite",
+    "name": "describe block 1",
+    "loc": {
+      "start": {
+        "line": 1,
+        "column": 0
+      },
+      "end": {
+        "line": 17,
+        "column": 4
+      }
+    },
+    "child": [
+      {
+        "type": "TestCase",
+        "name": "should succeed",
+        "loc": {
+          "start": {
+            "line": 2,
+            "column": 4
+          },
+          "end": {
+            "line": 4,
+            "column": 8
+          }
+        },
+        "child": []
+      },
+      {
+        "type": "TestCase",
+        "name": "should failed within assert",
+        "loc": {
+          "start": {
+            "line": 6,
+            "column": 4
+          },
+          "end": {
+            "line": 8,
+            "column": 8
+          }
+        },
+        "child": []
+      },
+      {
+        "type": "TestCase",
+        "name": "should error",
+        "loc": {
+          "start": {
+            "line": 10,
+            "column": 4
+          },
+          "end": {
+            "line": 12,
+            "column": 8
+          }
+        },
+        "child": []
+      },
+      {
+        "type": "TestCase",
+        "name": "is pending",
+        "loc": {
+          "start": {
+            "line": 14,
+            "column": 4
+          },
+          "end": {
+            "line": 16,
+            "column": 8
+          }
+        },
+        "child": []
+      }
+    ]
+  },
+  {
+    "type": "Suite",
+    "name": "error in describe",
+    "loc": {
+      "start": {
+        "line": 19,
+        "column": 0
+      },
+      "end": {
+        "line": 24,
+        "column": 4
+      }
+    },
+    "child": [
+      {
+        "type": "TestCase",
+        "name": "should not run",
+        "loc": {
+          "start": {
+            "line": 21,
+            "column": 4
+          },
+          "end": {
+            "line": 23,
+            "column": 8
+          }
+        },
+        "child": []
+      }
+    ]
+  },
+  {
+    "type": "Suite",
+    "name": "error in setup",
+    "loc": {
+      "start": {
+        "line": 26,
+        "column": 0
+      },
+      "end": {
+        "line": 34,
+        "column": 4
+      }
+    },
+    "child": [
+      {
+        "type": "TestCase",
+        "name": "should not run",
+        "loc": {
+          "start": {
+            "line": 31,
+            "column": 4
+          },
+          "end": {
+            "line": 33,
+            "column": 8
+          }
+        },
+        "child": []
+      }
+    ]
+  },
+  {
+    "type": "Suite",
+    "name": "error in teardown",
+    "loc": {
+      "start": {
+        "line": 36,
+        "column": 0
+      },
+      "end": {
+        "line": 45,
+        "column": 4
+      }
+    },
+    "child": [
+      {
+        "type": "TestCase",
+        "name": "should run",
+        "loc": {
+          "start": {
+            "line": 42,
+            "column": 4
+          },
+          "end": {
+            "line": 44,
+            "column": 8
+          }
+        },
+        "child": []
+      }
+    ]
+  },
+  {
+    "type": "Suite",
+    "name": "error in before_each",
+    "loc": {
+      "start": {
+        "line": 47,
+        "column": 0
+      },
+      "end": {
+        "line": 59,
+        "column": 4
+      }
+    },
+    "child": [
+      {
+        "type": "TestCase",
+        "name": "should not run 1",
+        "loc": {
+          "start": {
+            "line": 52,
+            "column": 4
+          },
+          "end": {
+            "line": 54,
+            "column": 8
+          }
+        },
+        "child": []
+      },
+      {
+        "type": "TestCase",
+        "name": "should not run 2",
+        "loc": {
+          "start": {
+            "line": 56,
+            "column": 4
+          },
+          "end": {
+            "line": 58,
+            "column": 8
+          }
+        },
+        "child": []
+      }
+    ]
+  },
+  {
+    "type": "Suite",
+    "name": "error in after_each",
+    "loc": {
+      "start": {
+        "line": 62,
+        "column": 0
+      },
+      "end": {
+        "line": 74,
+        "column": 4
+      }
+    },
+    "child": [
+      {
+        "type": "TestCase",
+        "name": "should run 1",
+        "loc": {
+          "start": {
+            "line": 67,
+            "column": 4
+          },
+          "end": {
+            "line": 69,
+            "column": 8
+          }
+        },
+        "child": []
+      },
+      {
+        "type": "TestCase",
+        "name": "should run 2",
+        "loc": {
+          "start": {
+            "line": 71,
+            "column": 4
+          },
+          "end": {
+            "line": 73,
+            "column": 8
+          }
+        },
+        "child": []
+      }
+    ]
+  }
+]
