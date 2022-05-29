@@ -5,7 +5,7 @@
   "version": "0.1.0",
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/BuBuaBu/vscode-busted-test-explorer.git"
+    "url": "https://github.com/BuBuaBu/vscode-busted-test-explorer.git"
   },
   "author": "Vivien HENRIET",
   "publisher": "bubuabu",
@@ -14,6 +14,7 @@
     "url": "https://github.com/BuBuaBu/vscode-busted-test-explorer/issues"
   },
   "homepage": "https://github.com/BuBuaBu/vscode-busted-test-explorer",
+  "icon": "res/logo.png",
   "engines": {
     "vscode": "^1.67.0"
   },
