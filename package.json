@@ -31,6 +31,7 @@
       "properties": {
         "busted-test-explorer.executable": {
           "type": "string",
+          "minLength": 1,
           "default": "busted",
           "description": "Name or full path of the busted executable. If only a name is provided, the executable must be in PATH."
         },
@@ -39,6 +40,7 @@
           "items": {
             "type": "string"
           },
+          "default": [],
           "description": "Additional busted command line option."
         },
         "busted-test-explorer.cwd": {
@@ -50,11 +52,12 @@
           "additionalProperties": {
             "type": "string"
           },
+          "default": {},
           "description": "Environement variable appended to the environment when busted is executed."
         },
         "busted-test-explorer.testfilepattern": {
           "type": "string",
-          "default": "*_spec.lua",
+          "default": "**/*_spec.lua",
           "description": "Test file pattern"
         }
       }
