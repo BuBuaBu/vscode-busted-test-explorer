@@ -105,8 +105,9 @@ export async function execute (
     busted.on('error', (error) => {
       console.log(`[Busted] error: ${error.message}`)
       run.appendOutput(`Busted error: ${error.message}\r\n`, undefined, currentTest)
+      vscode.window.showErrorMessage(`Failed to spawn busted: (${error.message})\r\nCheck that '${bustedExecutable}' is installed and in your PATH`)
     })
-    busted.on('close', code => {
+    busted.on('close', (code, signal) => {
       console.log(`[Busted] close: ${code}`)
       run.appendOutput(`Busted exited with code ${code}\r\n`, undefined, currentTest)
       resolve()
