@@ -50,7 +50,7 @@ export function activate (context: vscode.ExtensionContext) {
   function addTests (parent: vscode.TestItem, uri: vscode.Uri, filePath: String, baseName: String, definitions: Test[]) {
     definitions.forEach((definition) => {
       const name = `${baseName}${baseName.length > 0 ? ' ' : ''}${definition.name}`
-      const id = `${normalizePath(filePath)}:${name}`
+      const id = `${normalizePath(filePath as string)}:${name}`
       const test = controller.createTestItem(id, definition.name, uri)
       test.range = new vscode.Range(
         new vscode.Position(definition.loc.start.line - 1, definition.loc.start.column),
