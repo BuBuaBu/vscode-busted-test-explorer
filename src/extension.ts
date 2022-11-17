@@ -5,6 +5,7 @@ import * as config from './config'
 import * as cache from './cache'
 import * as runner from './runner'
 import { ItemType, Test } from './types'
+import { normalize } from 'path'
 
 export function activate (context: vscode.ExtensionContext) {
   const controller = vscode.tests.createTestController('busted-test-explorer', 'Busted Test Explorer')
@@ -21,6 +22,10 @@ export function activate (context: vscode.ExtensionContext) {
   vscode.workspace.onDidOpenTextDocument(parseTestsInDocument)
   vscode.workspace.onDidChangeTextDocument(e => parseTestsInDocument(e.document))
 
+  function normalizePath (path: string) {
+    return normalize(path).replace(/^\\/, '')
+  }
+
   function getOrCreateFile (uri: vscode.Uri) {
     const existing = controller.items.get(uri.toString())
     if (existing) {
@@ -29,7 +34,8 @@ export function activate (context: vscode.ExtensionContext) {
 
     const file = controller.createTestItem(uri.toString(), uri.path.split('/').pop()!, uri)
     file.canResolveChildren = true
-    cache.add(uri.toString(), file, { type: ItemType.file })
+    const id = normalizePath(uri.path)
+    cache.add(id, file, { type: ItemType.file })
     controller.items.add(file)
     return file
   }
@@ -44,7 +50,7 @@ export function activate (context: vscode.ExtensionContext) {
   function addTests (parent: vscode.TestItem, uri: vscode.Uri, filePath: String, baseName: String, definitions: Test[]) {
     definitions.forEach((definition) => {
       const name = `${baseName}${baseName.length > 0 ? ' ' : ''}${definition.name}`
-      const id = `${filePath}:${name}`
+      const id = `${normalizePath(filePath)}:${name}`
       const test = controller.createTestItem(id, definition.name, uri)
       test.range = new vscode.Range(
         new vscode.Position(definition.loc.start.line - 1, definition.loc.start.column),
