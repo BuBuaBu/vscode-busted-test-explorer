@@ -12,7 +12,7 @@ A lightweight extension to run Lua Busted test cases in Visual Studio Code.
 
 ## Requirements
 
-- VS Code (version 1.67.0 or later)
+- VS Code (version 1.73.0 or later)
 - [Busted](https://olivinelabs.com/busted/)
 
 ## Features
