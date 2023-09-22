@@ -1,5 +1,9 @@
 # Change Log
 
+## [0.2.2]
+
+- Fix issue where tests removed from file stay forever in explorer view
+
 ## [0.2.1]
 
 - Fix path issue on Windows
