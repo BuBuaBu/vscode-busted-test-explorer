@@ -48,9 +48,11 @@ export function activate (context: vscode.ExtensionContext) {
   }
 
   function addTests (parent: vscode.TestItem, uri: vscode.Uri, filePath: String, baseName: String, definitions: Test[]) {
+    const newIds = new Set()
     definitions.forEach((definition) => {
       const name = `${baseName}${baseName.length > 0 ? ' ' : ''}${definition.name}`
       const id = `${normalizePath(filePath as string)}:${name}`
+      newIds.add(id)
       const test = controller.createTestItem(id, definition.name, uri)
       test.range = new vscode.Range(
         new vscode.Position(definition.loc.start.line - 1, definition.loc.start.column),
@@ -63,6 +65,11 @@ export function activate (context: vscode.ExtensionContext) {
 
       if (definition.type === 'Suite') {
         addTests(test, uri, filePath, name, definition.child)
+      }
+    })
+    parent.children.forEach((test) => {
+      if (!newIds.has(test.id)) {
+        parent.children.delete(test.id)
       }
     })
   }
