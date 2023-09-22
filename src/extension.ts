@@ -83,8 +83,12 @@ export function activate (context: vscode.ExtensionContext) {
       contents = (await vscode.workspace.fs.readFile(file.uri)).toString()
     }
 
-    const tests = parse(contents)
-    addTests(file, file.uri, file.uri.path, '', tests)
+    try {
+      const tests = parse(contents)
+      addTests(file, file.uri, file.uri.path, '', tests)
+    } catch (err) {
+      // Catch parsing issue while editing
+    }
   }
 
   async function discoverAllFilesInWorkspace () {
