@@ -38,6 +38,8 @@ export async function execute (
 
   const reporterPath = path.join(context.extensionPath, 'res', 'reporter.lua')
 
+  const currentDir = process.cwd()
+
   await new Promise((resolve: Function, reject: Function) => {
     const args = [
       ...[...filter].map(name => `--filter=${name}`),
@@ -45,11 +47,33 @@ export async function execute (
       ...config.getArguments(),
       ...files
     ]
-    console.log('[Busted] execute:', bustedExecutable, args)
-    const busted = spawn(bustedExecutable, args, {
+    
+    let executableToSpawn
+    switch (process.platform) {
+      case 'win32':
+        // to support files with spaces, temporarily change dir
+        const parsedPath = path.parse(bustedExecutable)
+        if (parsedPath.dir !== '') {
+          // only chdir when it is actually a file
+          process.chdir(parsedPath.dir)
+          console.log('[Busted] set dir before execute:', parsedPath.dir)
+        }
+        executableToSpawn = parsedPath.base
+        break
+      default:
+        executableToSpawn = bustedExecutable
+        break
+    }
+    console.log('[Busted] execute:', executableToSpawn, args)
+    const busted = spawn(executableToSpawn, args, {
       cwd: config.getWorkingDirectory(),
       env: { ...process.env, ...config.getEnvironment() }
     })
+
+    if (process.cwd() !== currentDir) {
+      console.log('[Busted] set dir back to original:', currentDir)
+      process.chdir(currentDir)
+    }
 
     const rl = readline.createInterface({ input: busted.stdout })
 
@@ -105,6 +129,19 @@ export async function execute (
     busted.on('error', (error) => {
       console.log(`[Busted] error: ${error.message}`)
       run.appendOutput(`Busted error: ${error.message}\r\n`, undefined, currentTest)
+      switch (process.platform) {
+        case 'win32':
+          const parsedPath = path.parse(bustedExecutable)
+          run.appendOutput('If you recently updated the PATH file, try restarting VSCode. ', undefined, currentTest)
+          run.appendOutput('If still not detected, try a system restart.\r\n', undefined, currentTest)
+          if (parsedPath.ext === '') {
+            // warn about needing the extension name to properly run if its not an exe even if it is in PATH
+            run.appendOutput('If your busted executable is not an exe file, ', undefined, currentTest)
+            run.appendOutput('type its extension name even if it is in PATH. ', undefined, currentTest)
+            run.appendOutput('Example: busted.bat\r\n', undefined, currentTest)
+          }
+          break
+      }
       vscode.window.showErrorMessage(`Failed to spawn busted: (${error.message})\r\nCheck that '${bustedExecutable}' is installed and in your PATH`)
     })
     busted.on('close', (code, signal) => {
@@ -116,7 +153,12 @@ export async function execute (
     token.onCancellationRequested(() => {
       busted.kill()
     })
-  })
+  }).catch(error => {
+      vscode.window.showErrorMessage(error.message)
+      console.log(`[Run] error: ${error.message}`)
+      run.appendOutput(`Error occured during run: ${error.message}\r\n`)
+      run.end()
+    })
 
   run.end()
 }
