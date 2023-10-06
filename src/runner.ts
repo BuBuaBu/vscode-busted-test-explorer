@@ -153,7 +153,12 @@ export async function execute (
     token.onCancellationRequested(() => {
       busted.kill()
     })
-  })
+  }).catch(error => {
+      vscode.window.showErrorMessage(error.message);
+      console.log(`[Run] error: ${error.message}`);
+      run.appendOutput(`Error occured during run: ${error.message}\r\n`);
+      run.end()
+    })
 
   run.end()
 }
