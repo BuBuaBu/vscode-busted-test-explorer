@@ -40,7 +40,7 @@ export async function execute (
 
   await new Promise((resolve: Function, reject: Function) => {
     const args = [
-      ...[...filter].map(name => `--filter=${name}`),
+      ...[...filter].map(name => `--filter=${name.replace(/ /gi, "%s")}$`),
       '-o', reporterPath,
       ...config.getArguments(),
       ...files
